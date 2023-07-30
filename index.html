@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:,">
+  <title>ERC-1167 Deployer</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+      background: hsl(216deg 50% 90%);
+      color: hsl(216deg 50% 10%);
+      block-size: 100dvb;
+      margin-block: 0;
+      display: grid;
+      place-items: center;
+    }
+
+    main {
+      inline-size: min(480px, 100% - 16px);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    label {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    input {
+      font-size: 1rem;
+      padding: 4px;
+      border: 1px solid hsl(216deg 50% 50%);
+      border-radius: 4px;
+    }
+
+    button {
+      inline-size: fit-content;
+      font-size: 1rem;
+      padding: 4px 8px;
+      border: 1px solid hsl(216deg 50% 50%);
+      border-radius: 4px;
+      transition: filter 600ms;
+    }
+
+    button:hover,
+    button:focus {
+      cursor: pointer;
+      filter: brightness(110%);
+      transition: filter 200ms;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>ERC-1167 Deployer</h1>
+    <p>This web utility deploys an ERC-1167 minimal proxy pointing to a smart contract of your choice.</p>
+    <form>
+      <label for="contract">Smart contract to proxy to</label>
+      <input id="contract" name="contract" placeholder="0xbebebebebebebebebebebebebebebebebebebebe" title="Enter a valid smart contract." pattern="^0x[0-9a-fA-F]{40}" required>
+      <button>Deploy</button>
+    </form>
+  </main>
+
+  <script>
+    document.querySelector('form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const { contract } = Object.fromEntries(new FormData(e.target));
+      const bytecode = `0x7f363d3d373d3d3d363d73${contract.substring(2)}5af45f527f3d82803e903d91602b57fd5bf300000000000000000000000000000000000000602052602d5ff3`;
+      await ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [{
+          from: (await ethereum.request({ method: 'eth_requestAccounts' }))[0],
+          data: bytecode
+        }]
+      });
+    });
+  </script>
+</body>
+
+</html>
