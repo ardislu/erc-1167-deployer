@@ -22,3 +22,7 @@ PUSH1 45
 PUSH0
 RETURN
 ```
+
+## `PUSH0`
+
+The bytecode above uses the `PUSH0` opcode, which was introduced in the [Shapella upgrade](https://blog.ethereum.org/2023/03/28/shapella-mainnet-announcement) (April 2023). If you're not deploying on Ethereum mainnet, make sure the blockchain you're deploying on supports the `PUSH0` opcode.
