@@ -26,7 +26,8 @@ RETURN
 
 ## `PUSH0`
 
-**Caution:** the `PUSH0` opcode was introduced in the [Shapella upgrade](https://blog.ethereum.org/2023/03/28/shapella-mainnet-announcement) (April 2023). If you're not deploying on Ethereum mainnet, make sure the blockchain you're deploying on supports the `PUSH0` opcode.
+> [!IMPORTANT]<br>
+> The `PUSH0` opcode was introduced in the [Shapella upgrade](https://blog.ethereum.org/2023/03/28/shapella-mainnet-announcement) (April 2023). Not all EVM-based blockchains support this opcode. If you're not deploying on Ethereum mainnet, make sure the blockchain you're deploying on supports the `PUSH0` opcode.
 
 The ERC-1167 proxy and creation bytecode can be optimized using the `PUSH0` opcode. The optimized opcodes are below (the `PUSH0` optimized minimal proxy is derived from the [Solady's `LibClone.sol` library](https://github.com/Vectorized/solady/blob/main/src/utils/LibClone.sol)):
 
