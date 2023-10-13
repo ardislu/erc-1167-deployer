@@ -84,16 +84,16 @@
     document.querySelector('form').addEventListener('submit', async e => {
       e.preventDefault();
       const { pattern, contract } = Object.fromEntries(new FormData(e.target));
-      let bytecode;
+      let data;
       switch (pattern) {
-        case 'ERC-1167': bytecode = `0x6c3d82803e903d91602b57fd5bf3600d527f363d3d373d3d3d363d73${contract.substring(2)}5af4600052602d6000f3`; break;
-        case 'ERC-1167-PUSH0': bytecode = `0x6c5f5f3e6029573d5ffd5b3d5ff3600d527f5f5f365f5f37365f73${contract.substring(2)}5af43d5f52602d5ff3`; break;
+        case 'ERC-1167': data = `0x6c3d82803e903d91602b57fd5bf3600d527f363d3d373d3d3d363d73${contract.substring(2)}5af4600052602d6000f3`; break;
+        case 'ERC-1167-PUSH0': data = `0x6c5f5f3e6029573d5ffd5b3d5ff3600d527f5f5f365f5f37365f73${contract.substring(2)}5af43d5f52602d5ff3`; break;
       }
       await ethereum.request({
         method: 'eth_sendTransaction',
         params: [{
           from: (await ethereum.request({ method: 'eth_requestAccounts' }))[0],
-          data: bytecode
+          data
         }]
       });
     });
